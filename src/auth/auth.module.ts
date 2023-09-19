@@ -5,7 +5,6 @@ import { DatabaseModule } from 'src/database/database.module';
 import { authProviders } from './auth.providers';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { jwtConstants } from './auth.constant';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { JwtStrategy } from 'src/guards/jwt-strategy.guard';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
@@ -15,7 +14,7 @@ import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
     DatabaseModule,
     JwtModule.register({
       global: true,
-      secret: jwtConstants.secret,
+      secret: process.env.SECRET_KEY,
       signOptions: { algorithm: 'HS512', expiresIn: '1d' },
     }),
     PassportModule.register({
